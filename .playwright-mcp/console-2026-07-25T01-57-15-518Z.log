@@ -1,0 +1,62 @@
+[    3549ms] [ERROR] ErrorUtils caught an error:
+
+[storage] storage bucket persistence denied (aquire-persistent-storage-denied)
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 17878, clientTime: 1784944639, extra: Object, guardList: Array(0), hash: lwvmsd} @ https://static.whatsapp.net/rsrc.php/v4/yf/r/nUFR4qoTmpA.js:79
+[   48582ms] [ERROR] ErrorUtils caught an error:
+
+[storage] storage bucket persistence denied (aquire-persistent-storage-denied)
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 17878, clientTime: 1784944684, extra: Object, guardList: Array(0), hash: xqtz1i} @ https://static.whatsapp.net/rsrc.php/v4/yf/r/nUFR4qoTmpA.js:79
+[   75162ms] [WARNING] The PerformanceObserver does not support buffered flag with the entryTypes argument. @ https://static.whatsapp.net/rsrc.php/v4ikVs4/yb/l/en_GB-j/i4QgERN5EskiEuPVjuvEdicZdTz7-IUy37WCNx9GZ3Y6kLJhOcbQFvdo0bY8wPzOLs7dlUo3mE2K5WqF0Uf_atZL4vNQf59mdk7mhaBv6lIxw2e0qnL2dG90HR87KwIqiwwqso6pjbbzH2b.js:101
+[   83171ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.whatsapp.net/rsrc.php/v4/yU/r/v8ELRlt5Zdv.js:322
+[   83245ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.whatsapp.net/rsrc.php/v4/yU/r/v8ELRlt5Zdv.js:322
+[   83306ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.whatsapp.net/rsrc.php/v4/yU/r/v8ELRlt5Zdv.js:322
+[   87637ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://media-cgk1-2.cdn.whatsapp.net/v/t62.36145-24/696482417_1465883495075565_5725518393911222081_n.enc?ccb=11-4&oh=01_Q5Aa4gFZ4VITASBOTTDMY2Axu31rSKZ6xZ_crTHaoPgAf_elzA&oe=6A2629FB&_nc_sid=5e03e0&hash=FQOLJkFI4nTkHuHDmp-nLWxuQgX77JzXdWWpdMfnoHw%3D&mms-type=thumbnail-document&__wa-mms=:0
+[   88031ms] [ERROR] Loading the image 'https://static.whatsapp.net/rsrc.php/yd/r/PfkSLByWV8O.webp' violates the following Content Security Policy directive: "img-src 'self' blob:". The action has been blocked. @ https://webtp.whatsapp.net/pdf-viewer/?locale=en_GB:0
+[   88031ms] [ERROR] Loading the image 'https://static.whatsapp.net/rsrc.php/yI/r/EoOh62-jiPS.webp' violates the following Content Security Policy directive: "img-src 'self' blob:". The action has been blocked. @ https://webtp.whatsapp.net/pdf-viewer/?locale=en_GB:0
+[   92291ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[   92293ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[   92985ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[   92985ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[   93832ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[   93832ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[   95690ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[   95690ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  221962ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  221965ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  222846ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  222848ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  223823ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  223825ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  225365ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  225366ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  229206ms] [ERROR] Failed to load resource: the server responded with a status of 400 () @ https://crashlogs.whatsapp.net/wa_fls_upload_check?type=crashlog&access_token=1063127757113399%7C745146ffa34413f9dbb5469f5370b7af:0
+[  386390ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  386391ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  386392ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  386393ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  386393ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  386393ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  386893ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  386893ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  386925ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  386925ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  386927ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  386927ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  387831ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  387831ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  387832ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  387832ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  387952ms] [ERROR] Access to fetch at 'https://dit.whatsapp.net/deidentified_telemetry' from origin 'https://web.whatsapp.com' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://web.whatsapp.com/:0
+[  387952ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://dit.whatsapp.net/deidentified_telemetry:0
+[  392277ms] [ERROR] ErrorUtils caught an error:
+
+[storage] storage bucket persistence denied (aquire-persistent-storage-denied)
+
+Subsequent non-fatal errors won't be logged; see https://fburl.com/debugjs. {column: 17878, clientTime: 1784945027, extra: Object, guardList: Array(0), hash: x4adll} @ https://static.whatsapp.net/rsrc.php/v4/yf/r/nUFR4qoTmpA.js:79
+[  394958ms] [WARNING] The PerformanceObserver does not support buffered flag with the entryTypes argument. @ https://static.whatsapp.net/rsrc.php/v4i7lx4/yZ/l/en_US-j/6gO9-4_d3e3JKQwC9UxE2a2ioR0QMlO1YTUI-wUZERIOOuaCyj7U94fK0hc-S2vFZPhzoAIRf8nx2EPJPGgMSGCOOx2YzyuUxYxYyMvhGJciK0v_heeKjHhAvVU16RuZm615D1pIN49WHJQoDhnafzrLMLoeG-dUEKr-NMQ9C8tpcmX7-adv9QHG_Cw_f-TLF3iZnIi4QgERN5Esk9z7iV_tXy9QiEuPVjuvEdizY5eH6iEtfTAKe20tZTs_OcZdTz7-IUy3KQ2tFio9oOuQdihM7GwpMQ7WCNx9GZ3Y6hsUosN6XHWakLJhOcbQFvdBglQORHEJo9.js:1809
+[  404882ms] [ERROR] Failed to load resource: the server responded with a status of 403 () @ https://media-cgk1-2.cdn.whatsapp.net/v/t62.36145-24/696482417_1465883495075565_5725518393911222081_n.enc?ccb=11-4&oh=01_Q5Aa4gFZ4VITASBOTTDMY2Axu31rSKZ6xZ_crTHaoPgAf_elzA&oe=6A2629FB&_nc_sid=5e03e0&hash=FQOLJkFI4nTkHuHDmp-nLWxuQgX77JzXdWWpdMfnoHw%3D&mms-type=thumbnail-document&__wa-mms=:0
+[  405774ms] [ERROR] Loading the image 'https://static.whatsapp.net/rsrc.php/yd/r/PfkSLByWV8O.webp' violates the following Content Security Policy directive: "img-src 'self' blob:". The action has been blocked. @ https://webtp.whatsapp.net/pdf-viewer/?locale=en_US:0
+[  405775ms] [ERROR] Loading the image 'https://static.whatsapp.net/rsrc.php/yI/r/EoOh62-jiPS.webp' violates the following Content Security Policy directive: "img-src 'self' blob:". The action has been blocked. @ https://webtp.whatsapp.net/pdf-viewer/?locale=en_US:0
+[  406831ms] [ERROR] Permissions policy violation: unload is not allowed in this document. @ https://static.whatsapp.net/rsrc.php/v4/yD/r/lc-ZCWMeITD.js:242

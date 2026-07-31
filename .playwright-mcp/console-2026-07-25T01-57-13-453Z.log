@@ -1,0 +1,26 @@
+[     416ms] [LOG] ripple[DAHQUYUkAog:9yGeaJLDTzIZvV5tE(1784944633392-0,0)]: subscribing to channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[     449ms] [INFO] ripple[DAHQUYUkAog:9yGeaJLDTzIZvV5tE(1784944633392-0,0)]: unsubscribing from channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[     451ms] [INFO] websocket_client: 1784944633904 connecting... @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    2931ms] [INFO] websocket_client: connected @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    2931ms] [LOG] ripple[DAHQUYUkAog:9yGeaJLDTzIZvV5tE(1784944633392-0,0)]: subscribing to channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    2933ms] [INFO] websocket_client: status CONNECTED @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    3340ms] [INFO] websocket_client: request id a2078d7c1d3f3fd4 @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    4250ms] [WARNING] Allow attribute will take precedence over 'allowfullscreen'. @ https://static.canva.com/web/f0f5064478bcafca.s4le6a.vendor.js:1
+[    5149ms] [INFO] [CLIENT (Telemetry)] Telemetry SDK initialized {"extra":{"isSystem":true}} @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5566ms] [INFO] [CLIENT (Telemetry:Resizing)] Successfully connected to parent @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5617ms] [INFO] [CLIENT (Telemetry:Editing)] Successfully connected to parent @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5620ms] [INFO] [CLIENT (Telemetry:Editing)] Received setFeatureFlags @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5628ms] [INFO] [CLIENT (Telemetry:Editing)] Received handleSetConfig @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5720ms] [INFO] [CLIENT (Telemetry:Editing)] Received setInteractionMode: 2 @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[   12840ms] [LOG] %cCanva was built with TypeScript, React, MobX, RxJS, PostCSS, webpack, and lots of love. text-shadow: #a0f9fa 0 0 2px; font-family: monospace; font-size: 1.4em; @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[   12840ms] [LOG] %cWant to work with us? Check out https://www.canva.com/careers/ text-shadow: #a0f9fa 0 0 2px; font-family: monospace; font-size: 1.4em; @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[   12840ms] [LOG] %cWant to work alongside us? check out our APIs & SDK at https://www.canva.com/developers/ text-shadow: #a0f9fa 0 0 2px; font-family: monospace; font-size: 1.4em; @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[  733295ms] [INFO] ripple[DAHQUYUkAog:9yGeaJLDTzIZvV5tE(1784944636888-0,0)]: unsubscribing from channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[  733362ms] [INFO] websocket_client: status ERROR, reconnecting in 1492ms Error: RSocketWebSocketClient: Socket closed unexpectedly.
+    at WebSocket.<anonymous> (https://static.canva.com/web/87aca6ad38b1a879.vendor.js:2:231947)
+    at WebSocket.n (https://static.canva.com/web/4022506951bac174.sentry_browser.js:1:76075) @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[  734819ms] [INFO] websocket_client: 1784945368271 connecting... @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[  737387ms] [INFO] websocket_client: connected @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[  737389ms] [LOG] ripple[DAHQUYUkAog:9yGeaJLDTzIZvV5tE(1784944636888-0,0)]: subscribing to channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[  737403ms] [INFO] websocket_client: status CONNECTED @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[  737664ms] [INFO] websocket_client: request id a2079f6a2ad3fe23 @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0

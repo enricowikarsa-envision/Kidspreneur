@@ -1,0 +1,17 @@
+[    1152ms] [LOG] ripple[DAHQUYUkAog:5_qWtS3koMSl1rnPE(1784944582600-0,0)]: subscribing to channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    1179ms] [INFO] ripple[DAHQUYUkAog:5_qWtS3koMSl1rnPE(1784944582600-0,0)]: unsubscribing from channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    1190ms] [INFO] websocket_client: 1784944583817 connecting... @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    2579ms] [INFO] websocket_client: connected @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    2579ms] [LOG] ripple[DAHQUYUkAog:5_qWtS3koMSl1rnPE(1784944582600-0,0)]: subscribing to channel @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    2580ms] [INFO] websocket_client: status CONNECTED @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    2983ms] [INFO] websocket_client: request id a2078c43dfdf9d6f @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[    3679ms] [WARNING] Allow attribute will take precedence over 'allowfullscreen'. @ https://static.canva.com/web/f0f5064478bcafca.s4le6a.vendor.js:1
+[    4507ms] [INFO] [CLIENT (Telemetry)] Telemetry SDK initialized {"extra":{"isSystem":true}} @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5341ms] [INFO] [CLIENT (Telemetry:Resizing)] Successfully connected to parent @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5518ms] [INFO] [CLIENT (Telemetry:Editing)] Successfully connected to parent @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5520ms] [INFO] [CLIENT (Telemetry:Editing)] Received setFeatureFlags @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5525ms] [INFO] [CLIENT (Telemetry:Editing)] Received handleSetConfig @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[    5640ms] [INFO] [CLIENT (Telemetry:Editing)] Received setInteractionMode: 2 @ https://cegwwj1mgkj0a3wz.canvacode.com/_sdk/e358eac22bd01364.telemetry_sdk.js:0
+[   10448ms] [LOG] %cCanva was built with TypeScript, React, MobX, RxJS, PostCSS, webpack, and lots of love. text-shadow: #a0f9fa 0 0 2px; font-family: monospace; font-size: 1.4em; @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[   10448ms] [LOG] %cWant to work with us? Check out https://www.canva.com/careers/ text-shadow: #a0f9fa 0 0 2px; font-family: monospace; font-size: 1.4em; @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
+[   10449ms] [LOG] %cWant to work alongside us? check out our APIs & SDK at https://www.canva.com/developers/ text-shadow: #a0f9fa 0 0 2px; font-family: monospace; font-size: 1.4em; @ https://static.canva.com/web/4022506951bac174.sentry_browser.js:0
