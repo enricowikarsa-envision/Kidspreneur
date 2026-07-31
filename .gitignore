@@ -3,3 +3,4 @@ assessment-src/dist/
 assessment-src/.env
 .DS_Store
 Updated assets/
+.playwright-mcp/
