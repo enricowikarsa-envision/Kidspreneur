@@ -1,0 +1,10 @@
+# The site is deployed pre-built: `assessment/` and `admin/` are the shipped
+# artifacts. Their sources aren't needed at deploy time and would upload
+# node_modules, so keep them out.
+assessment-src/
+admin-src/
+docs/
+supabase/
+Updated assets/
+.playwright-mcp/
+.claude/

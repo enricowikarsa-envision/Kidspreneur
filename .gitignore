@@ -4,3 +4,5 @@ assessment-src/.env
 .DS_Store
 Updated assets/
 .playwright-mcp/
+.vercel
+.env*
