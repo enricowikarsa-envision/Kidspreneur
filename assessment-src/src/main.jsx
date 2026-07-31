@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { supabase } from "./supabaseClient";
 
 const PROFILE_ORDER = ["creative", "communicator", "integrator", "explorer"];
 
@@ -470,15 +471,27 @@ function App() {
       challengeDifference: ""
     };
     try {
-      const endpoint = import.meta.env.VITE_SHEETS_WEBHOOK_URL;
-      if (!endpoint) throw new Error("Submission endpoint not configured");
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(payload)
+      const { error } = await supabase.from("submissions").insert({
+        participant_code: payload.participantCode,
+        submitted_at: payload.submittedAt,
+        nickname: payload.nickname,
+        age: payload.age,
+        ai_frequency: payload.aiFrequency,
+        ai_tools: payload.aiTools,
+        experiences: payload.experiences,
+        creative_score: payload.scores.creative,
+        communicator_score: payload.scores.communicator,
+        integrator_score: payload.scores.integrator,
+        explorer_score: payload.scores.explorer,
+        core_strength: payload.coreStrength,
+        supporting_strength: payload.supportingStrength,
+        next_skill: payload.nextSkill,
+        scenario: payload.scenario,
+        challenge_problem: payload.challengeProblem,
+        challenge_solution: payload.challengeSolution,
+        answers: payload.answers
       });
-      const resultJson = await response.json().catch(() => ({ ok: response.ok }));
-      if (!response.ok || resultJson.ok === false) throw new Error(resultJson.reason || "Submission was not accepted");
+      if (error) throw error;
       setSavedToServer(true);
     } catch (error) {
       localStorage.setItem(`kidspreneur-result-${submissionId}`, JSON.stringify(payload));
