@@ -45,11 +45,16 @@ alter table admin_secret enable row level security;
 -- Deliberately zero policies: no role can read or write this table
 -- via the REST API under any circumstances.
 
+-- NOTE: search_path must include `extensions`, not just `public`.
+-- Supabase installs pgcrypto into the `extensions` schema, so a SECURITY DEFINER
+-- function pinned to `public` alone cannot see crypt() and fails at runtime with
+-- "function crypt(text, text) does not exist". Listing both schemas works whether
+-- pgcrypto lives in `extensions` (Supabase default) or `public` (vanilla Postgres).
 create or replace function get_submissions(admin_password text)
 returns setof submissions
 language plpgsql
 security definer
-set search_path = public
+set search_path = public, extensions
 as $$
 begin
   if exists (
