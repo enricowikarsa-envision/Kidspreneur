@@ -41,7 +41,20 @@
   .detail-grid p { font-size:13px; line-height:1.6; }
   pre { white-space:pre-wrap; word-break:break-word; font-size:12px; background:#fff; border:1px solid #EEF2F8; border-radius:8px; padding:10px; max-height:220px; overflow:auto; }
   .empty { padding:40px; text-align:center; color:#5B6B85; }
-  @media (max-width:700px) { .detail-grid { grid-template-columns:1fr; } main { padding:24px 14px; } header { padding:14px 18px; } }
+  /* On phones, drop the secondary columns so the table — and the detail panel
+     nested inside it — fit the viewport instead of forcing sideways scrolling
+     to read a child's written solution. Nothing is lost: every hidden column is
+     repeated in the expanded detail panel. */
+  @media (max-width:700px) {
+    .detail-grid { grid-template-columns:1fr; }
+    main { padding:24px 14px; }
+    header { padding:14px 18px; }
+    .hide-sm { display:none; }
+    th,td { padding:10px 8px; }
+    tr.detail td { padding:14px 10px; }
+    header img { height:30px; }
+    .back-home { font-size:12px; }
+  }
 </style>
 </head>
 <body>
@@ -67,9 +80,11 @@
           <thead>
             <tr>
               <th>Waktu</th><th>Nama</th><th>Usia</th>
-              <th>Core Strength</th><th>Supporting</th><th>Next Skill</th>
-              <th>Creative</th><th>Comm.</th><th>Integrator</th><th>Explorer</th>
-              <th>Freq. AI</th>
+              <th>Core Strength</th>
+              <th class="hide-sm">Supporting</th><th class="hide-sm">Next Skill</th>
+              <th class="hide-sm">Creative</th><th class="hide-sm">Comm.</th>
+              <th class="hide-sm">Integrator</th><th class="hide-sm">Explorer</th>
+              <th class="hide-sm">Freq. AI</th>
             </tr>
           </thead>
           <tbody id="rows"></tbody>
@@ -114,13 +129,13 @@
           <td>${esc(row.nickname)}</td>
           <td>${esc(row.age)}</td>
           <td>${esc(row.core_strength)}</td>
-          <td>${esc(row.supporting_strength)}</td>
-          <td>${esc(row.next_skill)}</td>
-          <td>${esc(row.creative_score)}</td>
-          <td>${esc(row.communicator_score)}</td>
-          <td>${esc(row.integrator_score)}</td>
-          <td>${esc(row.explorer_score)}</td>
-          <td>${esc(row.ai_frequency)}</td>
+          <td class="hide-sm">${esc(row.supporting_strength)}</td>
+          <td class="hide-sm">${esc(row.next_skill)}</td>
+          <td class="hide-sm">${esc(row.creative_score)}</td>
+          <td class="hide-sm">${esc(row.communicator_score)}</td>
+          <td class="hide-sm">${esc(row.integrator_score)}</td>
+          <td class="hide-sm">${esc(row.explorer_score)}</td>
+          <td class="hide-sm">${esc(row.ai_frequency)}</td>
         `;
 
         const detail = document.createElement("tr");
@@ -138,8 +153,16 @@
                 <p>${esc(row.challenge_solution)}</p>
               </div>
               <div>
+                <h4>Skor</h4>
+                <p>
+                  ✦ Creative ${esc(row.creative_score)}/9 ·
+                  ◉ Communicator ${esc(row.communicator_score)}/9 ·
+                  ⌁ Integrator ${esc(row.integrator_score)}/9 ·
+                  ⌕ Explorer ${esc(row.explorer_score)}/9<br>
+                  Supporting: ${esc(row.supporting_strength)} · Next: ${esc(row.next_skill)}
+                </p>
                 <h4>AI Tools</h4>
-                <p>${aiTools}</p>
+                <p>${aiTools} <em>(${esc(row.ai_frequency)})</em></p>
                 <h4>Pengalaman</h4>
                 <p>${experiences}</p>
                 <h4>Jawaban Lengkap</h4>
