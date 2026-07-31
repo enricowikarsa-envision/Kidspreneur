@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KidsPreneur — Admin Assessment</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="../assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Nunito',system-ui,sans-serif; color:#5B6B85; background:#F6F9FE; -webkit-font-smoothing:antialiased; min-height:100vh; }
+  h1,h2 { font-family:'Poppins',sans-serif; color:#0F2340; margin:0; }
+  a { color:#2563EB; text-decoration:none; }
+  header { background:#fff; border-bottom:1px solid #EEF2F8; padding:16px 32px; display:flex; align-items:center; justify-content:space-between; }
+  header img { height:36px; }
+  .back-home { font-size:13px; font-weight:700; }
+  main { max-width:1200px; margin:0 auto; padding:40px 24px; }
+  #login { max-width:380px; margin:60px auto; background:#fff; border:1px solid #EEF2F8; border-radius:20px; padding:34px; box-shadow:0 12px 30px rgba(15,35,64,.06); }
+  #login h1 { font-size:22px; margin-bottom:8px; }
+  #login p { font-size:14px; margin-bottom:20px; }
+  #login input { width:100%; padding:14px 15px; border:1.5px solid #D5E0F5; border-radius:11px; font:inherit; color:#0F2340; }
+  #login button { width:100%; margin-top:14px; background:#2563EB; color:#fff; font-weight:800; font-size:15px; padding:14px; border:0; border-radius:11px; cursor:pointer; box-shadow:0 12px 24px rgba(37,99,235,.28); }
+  #login .error { color:#D64545; font-size:13px; font-weight:700; margin-top:12px; display:none; }
+  #dashboard { display:none; }
+  #dashboard h1 { font-size:26px; margin-bottom:4px; }
+  #dashboard .count { color:#5B6B85; font-size:14px; margin-bottom:24px; }
+  .table-wrap { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; background:#fff; border:1px solid #EEF2F8; border-radius:14px; overflow:hidden; font-size:13px; }
+  th,td { text-align:left; padding:12px 14px; border-bottom:1px solid #EEF2F8; vertical-align:top; }
+  th { background:#F8FAFD; font-weight:800; color:#0F2340; font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+  tr.row:hover { background:#F8FAFD; cursor:pointer; }
+  tr.detail { display:none; background:#F8FAFD; }
+  tr.detail.open { display:table-row; }
+  tr.detail td { padding:18px; }
+  .detail-grid { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .detail-grid h4 { font-family:'Poppins',sans-serif; color:#0F2340; font-size:12px; text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px; }
+  .detail-grid p { font-size:13px; line-height:1.6; }
+  pre { white-space:pre-wrap; word-break:break-word; font-size:12px; background:#fff; border:1px solid #EEF2F8; border-radius:8px; padding:10px; max-height:220px; overflow:auto; }
+  .empty { padding:40px; text-align:center; color:#5B6B85; }
+  @media (max-width:700px) { .detail-grid { grid-template-columns:1fr; } main { padding:24px 14px; } header { padding:14px 18px; } }
+</style>
+</head>
+<body>
+  <header>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <img src="../assets/logo.png" alt="KidsPreneur">
+    </div>
+    <a class="back-home" href="../">← Kembali ke KidsPreneur.com</a>
+  </header>
+  <main>
+    <div id="login">
+      <h1>Admin · Strength Assessment</h1>
+      <p>Masukkan password admin untuk melihat hasil assessment.</p>
+      <input id="password" type="password" placeholder="Password" autocomplete="off">
+      <button id="loginBtn">Masuk</button>
+      <p class="error" id="loginError">Password salah atau belum ada data.</p>
+    </div>
+    <div id="dashboard">
+      <h1>Hasil Assessment</h1>
+      <p class="count" id="rowCount"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Waktu</th><th>Nama</th><th>Usia</th>
+              <th>Core Strength</th><th>Supporting</th><th>Next Skill</th>
+              <th>Creative</th><th>Comm.</th><th>Integrator</th><th>Explorer</th>
+              <th>Freq. AI</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <script>
+    const SUPABASE_URL = "https://ygenpyaqswifjqvrpjqo.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnZW5weWFxc3dpZmpxdnJwanFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDY4NjMsImV4cCI6MjEwMTA4Mjg2M30.1m5R9E2DoXYqwkBu6PxXqMG4uIcpwn13pnn4dBTeerQ";
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const SESSION_KEY = "kp-admin-pw";
+
+    function esc(value) {
+      return String(value ?? "").replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[c]);
+    }
+
+    function formatDate(iso) {
+      return new Date(iso).toLocaleString("id-ID", { dateStyle: "medium", timeStyle: "short" });
+    }
+
+    function renderRows(rows) {
+      const tbody = document.getElementById("rows");
+      const rowCount = document.getElementById("rowCount");
+      tbody.innerHTML = "";
+      rowCount.textContent = `${rows.length} submission${rows.length === 1 ? "" : "s"}`;
+
+      if (rows.length === 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="11" class="empty">Belum ada submission.</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      rows.forEach((row, i) => {
+        const tr = document.createElement("tr");
+        tr.className = "row";
+        tr.innerHTML = `
+          <td>${esc(formatDate(row.submitted_at))}</td>
+          <td>${esc(row.nickname)}</td>
+          <td>${esc(row.age)}</td>
+          <td>${esc(row.core_strength)}</td>
+          <td>${esc(row.supporting_strength)}</td>
+          <td>${esc(row.next_skill)}</td>
+          <td>${esc(row.creative_score)}</td>
+          <td>${esc(row.communicator_score)}</td>
+          <td>${esc(row.integrator_score)}</td>
+          <td>${esc(row.explorer_score)}</td>
+          <td>${esc(row.ai_frequency)}</td>
+        `;
+
+        const detail = document.createElement("tr");
+        detail.className = "detail";
+        const aiTools = (row.ai_tools || []).length ? esc((row.ai_tools || []).join(", ")) : "—";
+        const experiences = (row.experiences || []).length ? esc((row.experiences || []).join(", ")) : "—";
+        detail.innerHTML = `
+          <td colspan="11">
+            <div class="detail-grid">
+              <div>
+                <h4>Challenge</h4>
+                <p><strong>${esc(row.scenario)}</strong></p>
+                <p>${esc(row.challenge_problem)}</p>
+                <h4>Solusi Anak</h4>
+                <p>${esc(row.challenge_solution)}</p>
+              </div>
+              <div>
+                <h4>AI Tools</h4>
+                <p>${aiTools}</p>
+                <h4>Pengalaman</h4>
+                <p>${experiences}</p>
+                <h4>Jawaban Lengkap</h4>
+                <pre>${esc(JSON.stringify(row.answers, null, 2))}</pre>
+              </div>
+            </div>
+          </td>
+        `;
+
+        tr.addEventListener("click", () => {
+          detail.classList.toggle("open");
+        });
+
+        tbody.appendChild(tr);
+        tbody.appendChild(detail);
+      });
+    }
+
+    async function fetchSubmissions(password) {
+      const { data, error } = await client.rpc("get_submissions", { admin_password: password });
+      if (error) throw error;
+      return data || [];
+    }
+
+    async function tryLogin(password) {
+      const loginError = document.getElementById("loginError");
+      const loginBtn = document.getElementById("loginBtn");
+      loginError.style.display = "none";
+      loginBtn.disabled = true;
+      loginBtn.textContent = "Memeriksa...";
+
+      try {
+        const rows = await fetchSubmissions(password);
+        if (rows.length === 0) {
+          loginError.textContent = "Password salah atau belum ada data.";
+          loginError.style.display = "block";
+          loginBtn.disabled = false;
+          loginBtn.textContent = "Masuk";
+          return;
+        }
+        sessionStorage.setItem(SESSION_KEY, password);
+        document.getElementById("login").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+        renderRows(rows);
+      } catch (err) {
+        loginError.textContent = "Terjadi kesalahan. Coba lagi.";
+        loginError.style.display = "block";
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Masuk";
+      }
+    }
+
+    const passwordInput = document.getElementById("password");
+    document.getElementById("loginBtn").addEventListener("click", () => {
+      tryLogin(passwordInput.value);
+    });
+    passwordInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        tryLogin(passwordInput.value);
+      }
+    });
+
+    const cached = sessionStorage.getItem(SESSION_KEY);
+    if (cached) {
+      tryLogin(cached);
+    }
+  </script>
+</body>
+</html>
