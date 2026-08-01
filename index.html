@@ -175,7 +175,7 @@
 
     /* Metode Belajar: the connector line is absolutely positioned across the
        5-across row (top:26px, left/right 10%). Stacked vertically it just cuts
-       a stray rule through the "1" badge, so drop it — it carries no meaning
+       a stray rule through the "1" badge, so drop it; it carries no meaning
        outside the horizontal layout. */
     #kp-root [data-reveal="line"] { display: none !important; }
 
@@ -217,7 +217,7 @@
     /* footer link rows are inline-flex; keep them centred as a column list */
     #footer a { justify-content: center; }
     /* footer's horizontal flex rows (contact lines, the legal bar) default to
-       packing left, which fights the centred column — centre them too. The
+       packing left, which fights the centred column, so centre them too. The
        :not() keeps the column-direction link lists stacking normally. */
     #footer [style*="display:flex"]:not([style*="flex-direction:column"]) {
       justify-content: center !important;
@@ -231,7 +231,7 @@
   }
 
   /* ============ CERTIFICATION LOGOS ============
-     Placeholder art lives in assets/cert-*.webp — drop the real logo file in
+     Placeholder art lives in assets/cert-*.webp; drop the real logo file in
      at the same path (or repoint the src) and the layout stays put. */
   .kp-cert {
     margin: 0; width: 172px; padding: 14px 12px 12px;
@@ -392,7 +392,7 @@
      if scripts fail, the tab is hidden, or a crawler renders it. */
   #kp-root { --kp-ease: cubic-bezier(0.22, 1, 0.36, 1); }
 
-  /* Reading-progress rail — the page is long; this gives orientation. */
+  /* Reading-progress rail: the page is long; this gives orientation. */
   #kp-progress {
     position: fixed; top: 0; left: 0; right: 0; height: 3px;
     transform: scaleX(0); transform-origin: 0 50%;
@@ -407,7 +407,7 @@
     box-shadow: 0 8px 26px rgba(20, 40, 75, 0.09); border-bottom-color: transparent;
   }
 
-  /* Reveals — reserved for sequences and proof moments, not every section. */
+  /* Reveals: reserved for sequences and proof moments, not every section. */
   .kp-motion [data-reveal] {
     opacity: 0; transform: translateY(20px);
     transition: opacity .6s var(--kp-ease), transform .6s var(--kp-ease);
