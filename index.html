@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>KidsPreneur — Menyiapkan Anak Kreatif, Kritis & Berjiwa Inovator di Era AI</title>
-<meta name="description" content="KidsPreneur by AIU — partner orang tua menyiapkan anak yang kreatif, kritis, dan bertanggung jawab dalam menggunakan AI.">
+<title>KidsPreneur: Menyiapkan Anak Kreatif, Kritis & Berjiwa Inovator di Era AI</title>
+<meta name="description" content="KidsPreneur by AIU, partner orang tua menyiapkan anak yang kreatif, kritis, dan bertanggung jawab dalam menggunakan AI.">
 <link rel="icon" type="image/png" href="assets/logo.png">
 <style>html{scroll-behavior:smooth;}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -167,6 +167,65 @@
     #contact a { min-height: 44px; }
   }
 
+  /* ---------- Single-column fixes for art that assumes a side-by-side row ---------- */
+  @media (max-width: 768px) {
+    /* "Berpikir bersama AI" closing band: once the 1fr/auto grid stacks, the
+       250px illustration is left-aligned in a full-width cell. Centre it. */
+    #kp-root [style*="flex:none; width:250px"] { justify-self: center; margin-left: auto; margin-right: auto; }
+
+    /* Metode Belajar: the connector line is absolutely positioned across the
+       5-across row (top:26px, left/right 10%). Stacked vertically it just cuts
+       a stray rule through the "1" badge, so drop it — it carries no meaning
+       outside the horizontal layout. */
+    #kp-root [data-reveal="line"] { display: none !important; }
+
+    /* Logos are sized for a wide header/footer; scale them back on phones so
+       they don't dominate the bar. Height-only keeps the 3.94:1 aspect intact. */
+    #kp-root header img[src*="logo.png"] { height: 36px !important; }
+    #footer img[src*="logo.png"] { height: 44px !important; }
+  }
+
+  /* ============ MOBILE: ONE CONSISTENT CENTRED RHYTHM ============
+     Desktop mixes left-aligned and centred sections. In a single narrow column
+     that reads as inconsistent, so on phones everything centres: eyebrows,
+     headings, body copy, badges and button rows. Exceptions below are the
+     places where centring would actively hurt (typed input, dense list rows). */
+  @media (max-width: 768px) {
+    #kp-root, #kp-root section, #kp-root header, #footer { text-align: center; }
+
+    /* copy blocks that were pinned left by a max-width now sit centred */
+    #kp-root [style*="max-width:"] { margin-left: auto !important; margin-right: auto !important; }
+
+    /* button / badge rows follow the text */
+    #kp-root [style*="display:flex"][style*="flex-wrap:wrap"],
+    #kp-root [style*="display:inline-flex"] { justify-content: center; }
+
+    /* icon-beside-text rows restack so the icon sits above centred copy,
+       instead of a left icon fighting centred text */
+    #kp-root [style*="display:flex"][style*="align-items:flex-start"] {
+      flex-direction: column; align-items: center !important;
+    }
+
+    /* things that must NOT inherit centring */
+    #kp-root input, #kp-root textarea, #kp-root select { text-align: left; }
+    /* the consent checkbox keeps its checkbox-then-label reading order */
+    #kp-root label[style*="align-items:flex-start"] {
+      flex-direction: row !important; align-items: flex-start !important; text-align: left;
+    }
+    /* FAQ: centre the question but keep the +/- affordance beside it */
+    #kp-root summary { justify-content: center !important; gap: 10px !important; }
+    /* footer link rows are inline-flex; keep them centred as a column list */
+    #footer a { justify-content: center; }
+    /* footer's horizontal flex rows (contact lines, the legal bar) default to
+       packing left, which fights the centred column — centre them too. The
+       :not() keeps the column-direction link lists stacking normally. */
+    #footer [style*="display:flex"]:not([style*="flex-direction:column"]) {
+      justify-content: center !important;
+    }
+    /* the legal bar is a space-between row on desktop; stack it on phones */
+    #footer [style*="justify-content:space-between"] { flex-direction: column; gap: 12px; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     #kp-nav { transition: none !important; }
   }
@@ -303,16 +362,14 @@
     #kp-announce .kp-ann-inner { padding: 9px 46px 9px 16px; gap: 6px 10px; }
     #kp-announce .kp-ann-text { font-size: 13px; }
     #kp-announce .kp-ann-more { display: none; }
+    /* Drop the CTA on mobile: the bar reads as a single clean line of news, and
+       the same destination is still one tap away via the header's "Daftar
+       Sekarang" in the hamburger drawer. */
+    #kp-announce .kp-ann-cta { display: none; }
   }
   @media (max-width: 480px) {
-    /* Keep the dot inline with the headline; drop the CTA onto its own full-width
-       row so it clears the 44px touch target without a stray dot on line one. */
-    #kp-announce .kp-ann-inner { padding: 10px 44px 12px 16px; row-gap: 10px; }
+    #kp-announce .kp-ann-inner { padding: 10px 44px 10px 16px; }
     #kp-announce .kp-ann-text { text-align: left; }
-    #kp-announce .kp-ann-cta {
-      flex-basis: 100%; justify-content: center;
-      min-height: 44px; padding: 10px 20px; font-size: 13.5px;
-    }
     #kp-announce .kp-ann-close { width: 40px; height: 40px; top: 6px; transform: none; }
   }
 
@@ -410,12 +467,12 @@
   <!-- HEADER -->
   <header style="position:sticky; top:0; z-index:50; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-bottom:1px solid #EEF2F8;">
     <div style="max-width:1300px; margin:0 auto; padding:16px 44px; display:flex; align-items:center; justify-content:space-between; gap:24px;">
-      <img src="assets/logo.png" alt="KidsPreneur" style="height: 49px; width: auto">
+      <img src="assets/logo.png" alt="KidsPreneur" style="height: 42px; width: auto">
       <nav id="kp-nav" style="display:flex; align-items:center; gap:32px; font-weight:600; font-size:15.5px; color:#3F4A5E;">
         <a class="navlink" href="#" style="color:var(--accent-a); position:relative; font-weight:700;">Home<span style="position:absolute; left:0; right:0; bottom:-10px; height:3px; border-radius:3px; background:var(--accent-a);"></span></a>
         <span class="kp-dd"><button class="kp-dd-btn" type="button" aria-expanded="false" aria-controls="kp-dd-programs">Programs <span class="kp-dd-caret" aria-hidden="true">▼</span></button><span class="kp-dd-menu" id="kp-dd-programs" role="menu" hidden><a role="menuitem" href="#programs"><span class="kp-dd-title">Future Skills Lab: 3 Level</span><span class="kp-dd-sub">Satu perjalanan dari ide menjadi karya</span></a></span></span>
         <a class="navlink" href="#howitworks" style="color:#3F4A5E;">How It Works</a>
-        <a class="navlink" href="#footer" style="color:#3F4A5E;">About Us</a>
+        <a class="navlink" href="#trainers" style="color:#3F4A5E;">About Us</a>
         <a class="kp-nav-cta navlink" href="#contact" style="display:none; margin-top:6px; text-align:center; background:var(--accent-c); color:#3a2600; font-weight:800; padding:14px 20px; border-radius:10px;">Daftar Sekarang</a>
       </nav>
       <div style="display:flex; align-items:center; gap:14px;">
@@ -660,7 +717,7 @@
       <div style="text-align:center; max-width:720px; margin:0 auto 50px;">
         <div style="font-weight:800; font-size:14px; letter-spacing:2px; color:var(--accent-a); text-transform:uppercase;">Metode Belajar</div>
         <h2 style="font-family:'Poppins',sans-serif; font-weight:800; font-size:clamp(28px,3.1vw,40px); line-height:1.15; color:#0F2340; margin-top:10px; letter-spacing:-1px;">Belajar dengan membangun.</h2>
-        <p style="margin-top:14px; font-size:16.5px; line-height:1.6; font-weight:500;">Satu perjalanan yang berkelanjutan — bukan lima mata pelajaran yang terpisah.</p>
+        <p style="margin-top:14px; font-size:16.5px; line-height:1.6; font-weight:500;">Satu perjalanan yang berkelanjutan, bukan lima mata pelajaran yang terpisah.</p>
       </div>
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:14px; position:relative;">
         <div data-reveal="line" style="position:absolute; top:26px; left:10%; right:10%; height:3px; background:linear-gradient(90deg,var(--accent-a),var(--accent-b),var(--accent-c)); border-radius:3px; z-index:0;"></div>
@@ -1066,8 +1123,8 @@
   <footer id="footer" style="background:#0E1F3D; color:#A9B7CE;">
     <div style="max-width:1300px; margin:0 auto; padding:56px 44px 26px; display:grid; grid-template-columns:1.6fr 1fr 1fr 1.2fr; gap:36px;">
       <div>
-        <img src="assets/logo.png" alt="KidsPreneur" style="height:64px;">
-        <p style="font-size:13.5px; line-height:1.7; margin-top:16px; max-width:300px;">Program entrepreneurship &amp; AI yang bertanggung jawab untuk anak — menemukan masalah nyata, membangun solusi, memvalidasi ide, dan mempresentasikannya dengan percaya diri.</p>
+        <img src="assets/logo.png" alt="KidsPreneur" style="height:54px;">
+        <p style="font-size:13.5px; line-height:1.7; margin-top:16px; max-width:300px;">Program entrepreneurship &amp; AI yang bertanggung jawab untuk anak: menemukan masalah nyata, membangun solusi, memvalidasi ide, dan mempresentasikannya dengan percaya diri.</p>
       </div>
       <div>
         <h4 style="color:#fff; font-family:'Poppins',sans-serif; font-weight:700; font-size:16px; margin-bottom:16px;">Navigasi</h4>
