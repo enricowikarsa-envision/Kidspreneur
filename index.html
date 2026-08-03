@@ -191,7 +191,8 @@
      headings, body copy, badges and button rows. Exceptions below are the
      places where centring would actively hurt (typed input, dense list rows). */
   @media (max-width: 768px) {
-    #kp-root, #kp-root section, #kp-root header, #footer { text-align: center; }
+    /* the footer keeps its left-aligned directory look; see the footer block below */
+    #kp-root, #kp-root section, #kp-root header { text-align: center; }
 
     /* copy blocks that were pinned left by a max-width now sit centred */
     #kp-root [style*="max-width:"] { margin-left: auto !important; margin-right: auto !important; }
@@ -214,14 +215,6 @@
     }
     /* FAQ: centre the question but keep the +/- affordance beside it */
     #kp-root summary { justify-content: center !important; gap: 10px !important; }
-    /* footer link rows are inline-flex; keep them centred as a column list */
-    #footer a { justify-content: center; }
-    /* footer's horizontal flex rows (contact lines, the legal bar) default to
-       packing left, which fights the centred column, so centre them too. The
-       :not() keeps the column-direction link lists stacking normally. */
-    #footer [style*="display:flex"]:not([style*="flex-direction:column"]) {
-      justify-content: center !important;
-    }
     /* the legal bar is a space-between row on desktop; stack it on phones */
     #footer [style*="justify-content:space-between"] { flex-direction: column; gap: 12px; }
 
@@ -247,6 +240,29 @@
     /* copy + pricing columns lose the wide desktop gutters */
     #kp-root [style*="padding:40px 40px"] { padding: 26px 18px !important; }
     #kp-root [style*="padding:40px 38px 40px 4px"] { padding: 4px 18px 28px !important; }
+
+    /* ---- Guardrails list: kill the two-column artefacts ----
+       The centre rule is absolutely positioned at left:50% for the 2-up desktop
+       grid; stacked to one column it slices straight through the copy. The rows
+       also alternate a 44px gutter left/right to separate the two columns,
+       which reads as inconsistent indentation once they're all in one column. */
+    #guardrails [style*="left:50%"][style*="width:1px"] { display: none !important; }
+    #guardrails [style*="padding:26px 44px 26px 0"],
+    #guardrails [style*="padding:26px 0 26px 44px"] { padding: 22px 0 !important; }
+    /* number sits above the copy so every item shares one centred axis */
+    #guardrails [style*="border-top:1px solid #E6ECF5"] {
+      flex-direction: column; align-items: center; gap: 8px;
+    }
+
+    /* ---- Footer stays left-aligned on mobile ---- */
+    #footer, #footer * { text-align: left; }
+    #footer a,
+    #footer [style*="display:flex"]:not([style*="flex-direction:column"]) {
+      justify-content: flex-start !important;
+    }
+    /* !important: the legal bar carries align-items:center as an inline style,
+       which would otherwise beat this rule and keep it visually centred */
+    #footer [style*="justify-content:space-between"] { align-items: flex-start !important; }
   }
 
   @media (prefers-reduced-motion: reduce) {
