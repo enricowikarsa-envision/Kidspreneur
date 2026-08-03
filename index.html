@@ -224,6 +224,29 @@
     }
     /* the legal bar is a space-between row on desktop; stack it on phones */
     #footer [style*="justify-content:space-between"] { flex-direction: column; gap: 12px; }
+
+    /* ---- Program levels: keep the 01/02/03 badge beside its title ----
+       Fully stacking these rows leaves the big numeral alone on a line with
+       dead space next to it. Instead pair the badge column with the copy
+       column, and let the pricing block take its own full-width row.
+       Declared after the generic single-column rule so it wins on order. */
+    #kp-root [style*="240px 1fr 288px"] { grid-template-columns: auto 1fr !important; }
+    #kp-root [style*="240px 1fr 288px"] > *:nth-child(3) { grid-column: 1 / -1; }
+    /* badge column: tighten it, and let it shrink-wrap rather than stretch the
+       full card height, which would trail a long empty divider under the badge */
+    #kp-root [style*="240px 1fr 288px"] > *:first-child {
+      padding: 26px 14px 26px 18px !important;
+      align-self: start; border-right: none !important;
+    }
+    #kp-root [style*="240px 1fr 288px"] > *:first-child > [style*="flex:1 1 auto"] {
+      flex: 0 0 auto !important; margin: 12px 0 0 !important;
+    }
+    #kp-root [style*="width:96px"] {
+      width: 62px !important; height: 62px !important; font-size: 25px !important;
+    }
+    /* copy + pricing columns lose the wide desktop gutters */
+    #kp-root [style*="padding:40px 40px"] { padding: 26px 18px !important; }
+    #kp-root [style*="padding:40px 38px 40px 4px"] { padding: 4px 18px 28px !important; }
   }
 
   @media (prefers-reduced-motion: reduce) {
