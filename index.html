@@ -264,6 +264,16 @@
     #hero [style*="margin-top:34px"][style*="flex-wrap:wrap"] { justify-content: center !important; }
   }
 
+  /* ============ KONTAK: DROP THE DUPLICATE CONTACT CHANNELS ON MOBILE ============
+     Phone/Instagram/email + the WhatsApp CTA + the response-time note repeat
+     what the footer already lists a short scroll away, right on top of the
+     same-page contact form. Desktop keeps them (there's room); phones don't. */
+  @media (max-width: 768px) {
+    #contact div[style*="flex-direction:column"][style*="gap:14px"],
+    #contact a.kp-cta,
+    #contact a.kp-cta + p { display: none !important; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     #kp-nav { transition: none !important; }
   }
