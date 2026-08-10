@@ -245,6 +245,25 @@
     #footer a { justify-content: flex-start !important; }
   }
 
+  /* ============ HERO: CENTRE THE WHOLE STACK ON MOBILE ============
+     The hero is the one exception to the left-aligned rhythm above: it's a
+     single billboard moment (announcement bar, headline, subtitle, CTAs,
+     trust strip), not a reading column, so on phones it reads best as one
+     centred stack. Everything below the hero keeps the left-aligned rhythm. */
+  @media (max-width: 768px) {
+    #kp-announce .kp-ann-inner { justify-content: center !important; text-align: center !important; }
+    #kp-announce .kp-ann-text { text-align: center !important; }
+
+    #hero { text-align: center !important; }
+    /* the subtitle carries a fixed max-width so its box needs centring, not
+       just its text */
+    #hero [style*="max-width:470px"] { margin-left: auto !important; margin-right: auto !important; }
+    /* the CTA row and the avatar/"Trusted by parents" row are flex containers;
+       text-align does nothing for them, they need justify-content */
+    #hero [style*="margin-top:32px"][style*="flex-wrap:wrap"],
+    #hero [style*="margin-top:34px"][style*="flex-wrap:wrap"] { justify-content: center !important; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     #kp-nav { transition: none !important; }
   }
@@ -870,6 +889,14 @@
   }
   #kp-announce .kp-ann-close:hover { color: #fff; background: rgba(255,255,255,0.12); }
   #kp-announce .kp-ann-close:focus-visible { outline: 2px solid var(--accent-c); outline-offset: 2px; }
+  /* the bar is only ~38px tall on phones, so a 44px+ tap target can't be the
+     visible box without overflowing top/bottom — same trick as the trainer
+     social icons: keep the glyph centred and small, grow the hit area with a
+     centred pseudo-element instead of the element itself */
+  #kp-announce .kp-ann-close::after {
+    content: ""; position: absolute; left: 50%; top: 50%;
+    width: 44px; height: 44px; transform: translate(-50%, -50%);
+  }
 
   @media (max-width: 768px) {
     #kp-announce .kp-ann-inner { padding: 9px 46px 9px 16px; gap: 6px 10px; }
@@ -882,8 +909,8 @@
   }
   @media (max-width: 480px) {
     #kp-announce .kp-ann-inner { padding: 10px 44px 10px 16px; }
-    #kp-announce .kp-ann-text { text-align: left; }
-    #kp-announce .kp-ann-close { width: 48px; height: 48px; top: 2px; transform: none; }
+    /* button itself stays the base 32px, vertically centred by the base rule;
+       the ::after pseudo-element above already supplies the 44px tap target */
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -998,7 +1025,7 @@
   </header>
 
   <!-- HERO -->
-  <section style="position:relative; overflow:hidden; background:linear-gradient(165deg, var(--tint-a) 0%, var(--tint-b) 42%, #ffffff 82%);">
+  <section id="hero" style="position:relative; overflow:hidden; background:linear-gradient(165deg, var(--tint-a) 0%, var(--tint-b) 42%, #ffffff 82%);">
     <div class="deco-grid" style="position:absolute; top:64px; right:70px; width:150px; height:110px; background-image:radial-gradient(#C7D6EE 2px, transparent 2px); background-size:16px 16px; opacity:.7;"></div>
     <div class="deco-grid" style="position:absolute; bottom:170px; right:44px; width:120px; height:86px; background-image:radial-gradient(#C7D6EE 2px, transparent 2px); background-size:16px 16px; opacity:.5;"></div>
     <div style="max-width:1300px; margin:0 auto; padding:52px 44px 26px; display:grid; grid-template-columns:1.1fr 1fr; align-items:center; gap:28px; position:relative;">
@@ -1469,22 +1496,6 @@
     </div>
   </section>
 
-  <!-- 7. CLASS EXPERIENCE & PLACEMENT -->
-  <section id="experience" style="max-width:1300px; margin:0 auto; padding:var(--sec-y) 44px;">
-    <div style="text-align:center; max-width:760px; margin:0 auto 46px;">
-      <div style="font-weight:800; font-size:14px; letter-spacing:2px; color:var(--accent-a); text-transform:uppercase;">Pengalaman Kelas</div>
-      <h2 style="font-family:'Poppins',sans-serif; font-weight:800; font-size:clamp(28px,3.1vw,40px); line-height:1.15; color:#0F2340; margin-top:10px; letter-spacing:-1px; text-wrap:balance;">Terstruktur untuk anak. Terlihat jelas bagi orang tua.</h2>
-    </div>
-    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
-      <details class="kp-acc kp-step" open><summary><div style="flex:none; width:44px; height:44px; border-radius:12px; background:var(--tint-a); color:var(--accent-a); font-family:'Poppins',sans-serif; font-weight:800; display:flex; align-items:center; justify-content:center;">1</div><h3 style="font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:#0F2340;">Asesmen awal</h3><span class="kp-acc-chev" aria-hidden="true"></span></summary><div class="kp-acc-body"><p style="font-size:14px; line-height:1.55; margin-top:6px; font-weight:500;">Memahami usia, minat, pengalaman, level komunikasi, dan familiaritas anak dengan AI.</p></div></details>
-      <details class="kp-acc kp-step" open><summary><div style="flex:none; width:44px; height:44px; border-radius:12px; background:var(--tint-b); color:var(--accent-b); font-family:'Poppins',sans-serif; font-weight:800; display:flex; align-items:center; justify-content:center;">2</div><h3 style="font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:#0F2340;">Rekomendasi penempatan</h3><span class="kp-acc-chev" aria-hidden="true"></span></summary><div class="kp-acc-body"><p style="font-size:14px; line-height:1.55; margin-top:6px; font-weight:500;">Merekomendasikan titik masuk dan jalur belajar yang sesuai.</p></div></details>
-      <details class="kp-acc kp-step" open><summary><div style="flex:none; width:44px; height:44px; border-radius:12px; background:var(--tint-c); color:#E5941A; font-family:'Poppins',sans-serif; font-weight:800; display:flex; align-items:center; justify-content:center;">3</div><h3 style="font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:#0F2340;">Belajar tim kecil</h3><span class="kp-acc-chev" aria-hidden="true"></span></summary><div class="kp-acc-body"><p style="font-size:14px; line-height:1.55; margin-top:6px; font-weight:500;">Anak diberi tanggung jawab yang jelas menuju hasil bersama.</p></div></details>
-      <details class="kp-acc kp-step" open><summary><div style="flex:none; width:44px; height:44px; border-radius:12px; background:var(--tint-d); color:var(--accent-d); font-family:'Poppins',sans-serif; font-weight:800; display:flex; align-items:center; justify-content:center;">4</div><h3 style="font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:#0F2340;">Eksplorasi AI terarah</h3><span class="kp-acc-chev" aria-hidden="true"></span></summary><div class="kp-acc-body"><p style="font-size:14px; line-height:1.55; margin-top:6px; font-weight:500;">Mentor memberi struktur, pertanyaan, dan batas penggunaan yang aman.</p></div></details>
-      <details class="kp-acc kp-step" open><summary><div style="flex:none; width:44px; height:44px; border-radius:12px; background:var(--tint-a); color:var(--accent-a); font-family:'Poppins',sans-serif; font-weight:800; display:flex; align-items:center; justify-content:center;">5</div><h3 style="font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:#0F2340;">Feedback rutin</h3><span class="kp-acc-chev" aria-hidden="true"></span></summary><div class="kp-acc-body"><p style="font-size:14px; line-height:1.55; margin-top:6px; font-weight:500;">Ide diuji, dipresentasikan, didiskusikan, dan diperbaiki.</p></div></details>
-      <details class="kp-acc kp-step" open><summary><div style="flex:none; width:44px; height:44px; border-radius:12px; background:var(--tint-b); color:var(--accent-b); font-family:'Poppins',sans-serif; font-weight:800; display:flex; align-items:center; justify-content:center;">6</div><h3 style="font-family:'Poppins',sans-serif; font-weight:700; font-size:17px; color:#0F2340;">Persiapan showcase</h3><span class="kp-acc-chev" aria-hidden="true"></span></summary><div class="kp-acc-body"><p style="font-size:14px; line-height:1.55; margin-top:6px; font-weight:500;">Anak mengubah proses dan proyeknya menjadi sebuah presentasi.</p></div></details>
-    </div>
-  </section>
-
   <!-- 8. SIGNATURE EXPERIENCE: MINI SHARK TANK -->
   <section id="pitchday" data-screen-label="Mini Shark Tank" style="position:relative; overflow:hidden; background:linear-gradient(180deg,#0A1730 0%,#0C1E3D 50%,#0A1730 100%); padding:var(--sec-y) 44px;">
     <div style="position:absolute; top:-150px; right:-110px; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb,var(--accent-a) 30%,transparent), transparent 70%); pointer-events:none;"></div>
@@ -1730,7 +1741,7 @@
       </div>
       <div>
         <h4 style="color:#fff; font-family:'Poppins',sans-serif; font-weight:700; font-size:16px; margin-bottom:16px;">Detail Program</h4>
-        <div class="kp-foot-links"><a href="#guardrails">AI Bertanggung Jawab</a><a href="#experience">Pengalaman Kelas</a><a href="#pitchday">Pitch Day</a><a href="#trainers">Pengajar</a><a href="#faq">FAQ</a></div>
+        <div class="kp-foot-links"><a href="#guardrails">AI Bertanggung Jawab</a><a href="#pitchday">Pitch Day</a><a href="#trainers">Pengajar</a><a href="#faq">FAQ</a></div>
       </div>
       <div>
         <h4 style="color:#fff; font-family:'Poppins',sans-serif; font-weight:700; font-size:16px; margin-bottom:16px;">Kontak</h4>
