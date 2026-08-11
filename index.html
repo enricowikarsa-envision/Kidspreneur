@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>KidsPreneur: Menyiapkan Anak Kreatif, Kritis & Berjiwa Inovator di Era AI</title>
 <meta name="description" content="KidsPreneur by AIU, partner orang tua menyiapkan anak yang kreatif, kritis, dan bertanggung jawab dalam menggunakan AI.">
-<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="assets/favicon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
 <style>html{scroll-behavior:smooth;}</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -695,6 +699,11 @@
   .kp-foot-legal-links a:active { opacity: .65; }
   .kp-foot-legal-links a:focus-visible { outline: 2px solid var(--accent-c); outline-offset: 3px; }
 
+  /* ---- floating-card backdrop: tablet inset ---- */
+  @media (max-width: 1024px) {
+    #kp-footer-backdrop { padding: 48px 20px 40px; }
+  }
+
   @media (max-width: 768px) {
     /* single column, one shared left edge, comfortable thumb targets */
     .kp-foot-links a { min-height: 48px; padding: 12px 0; }
@@ -703,6 +712,10 @@
        so it needs to win against the blanket "#footer * { text-align:left }" */
     .kp-foot-legal, .kp-foot-legal * { text-align: center !important; }
     .kp-foot-legal-links a { justify-content: center !important; }
+    /* floating-card backdrop: shrink inset + radius so a narrow viewport
+       isn't wasted on margin, while keeping the floating effect */
+    #kp-footer-backdrop { padding: 40px 12px 32px; }
+    #footer { border-radius: 18px; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -1721,7 +1734,7 @@
       <div style="background:#F7F9FC; border:1px solid #EDF1F7; border-radius:20px; padding:34px 30px;">
         <h3 style="font-family:'Poppins',sans-serif; font-weight:800; font-size:18px; color:#8A98B0;">📍 Expansion</h3>
         <p style="margin-top:8px; font-size:15px; line-height:1.5; color:#9AA6BC; font-weight:500;">Coming Soon</p>
-        <span style="display:inline-flex; align-items:center; margin-top:20px; padding:7px 14px; border-radius:999px; background:#EDF1F7; color:#7688A6; font-weight:800; font-size:12.5px; letter-spacing:.3px;">Next Location</span>
+        <span style="display:inline-flex; align-items:center; margin-top:20px; padding:7px 14px; border-radius:999px; background:#EDF1F7; color:#7688A6; font-weight:800; font-size:12.5px; letter-spacing:.3px;">Partner with Us</span>
       </div>
     </div>
   </section>
@@ -1762,8 +1775,9 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer id="footer" style="background:#0D1B2A; color:#E2E8F0;">
+  <!-- FOOTER BACKDROP + FLOATING CARD -->
+  <div id="kp-footer-backdrop" style="background:linear-gradient(135deg, var(--tint-a) 0%, var(--tint-d) 50%, var(--tint-b) 100%); padding:64px 32px 48px;">
+  <footer id="footer" style="background:#0D1B2A; color:#E2E8F0; max-width:1260px; margin:0 auto; border-radius:28px; overflow:hidden; box-shadow:0 24px 60px rgba(20,40,75,0.16);">
     <div style="max-width:1300px; margin:0 auto; padding:56px 44px 26px; display:grid; grid-template-columns:1.6fr 1fr 1fr 1.2fr; gap:36px;">
       <div>
         <img src="assets/logo.png" alt="KidsPreneur" style="height:54px;">
@@ -1793,6 +1807,7 @@
       </div>
     </div>
   </footer>
+  </div>
 
 </div>
 
