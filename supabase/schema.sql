@@ -76,3 +76,29 @@ grant execute on function get_submissions(text) to anon;
 --   values (1, crypt('YOUR_PASSWORD_HERE', gen_salt('bf')));
 --
 -- Never commit the plaintext password to this repo.
+
+-- ============================================================
+-- MIGRATION: expand the assessment's Identity step to match the
+-- Kontak form fields. Run this once against an EXISTING project
+-- (one that already ran the `create table submissions` above).
+-- A brand-new project only needs this if it also needs the wider
+-- field set; run it right after the initial create table either way.
+--
+-- - `nickname` is reused as-is: it now holds the parent's name
+--   ("Nama Orang Tua") instead of the child's nickname. No rename,
+--   to avoid a breaking column change; only its meaning shifted.
+-- - `age` becomes free text ("mis. 10 tahun") instead of a strict
+--   int, and is no longer required, matching Kontak's own
+--   "Usia Anak" field (no asterisk = optional there).
+-- - whatsapp/email/interests/ai_experience/expectations are new,
+--   all nullable at the DB level — the app enforces "Nama Orang Tua"
+--   and "Nomor WhatsApp" as required client-side, same as Kontak.
+-- ============================================================
+alter table submissions
+  alter column age type text using age::text,
+  alter column age drop not null,
+  add column if not exists whatsapp text,
+  add column if not exists email text,
+  add column if not exists interests text,
+  add column if not exists ai_experience text,
+  add column if not exists expectations text;

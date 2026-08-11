@@ -201,7 +201,6 @@ function Shell({ children, step, compact = false }) {
       <header className="topbar">
         <div className="topbar-brand">
           <a href="../" aria-label="KidsPreneur.com"><Logo /></a>
-          <a href="../" className="back-home">← Kembali ke KidsPreneur.com</a>
         </div>
         {step > 0 && (
           <div className="progress-meta" aria-label={`Langkah ${Math.min(step, STEPS_TOTAL)} dari ${STEPS_TOTAL}`}>
@@ -250,7 +249,7 @@ function Welcome({ onStart }) {
 }
 
 function Identity({ form, setForm, onNext }) {
-  const valid = form.name.trim().length > 1 && Number(form.age) > 0;
+  const valid = form.parentName.trim().length > 1 && form.whatsapp.trim().length > 5 && form.consent;
   return (
     <Shell step={1} compact>
       <div className="section-heading">
@@ -260,9 +259,15 @@ function Identity({ form, setForm, onNext }) {
       </div>
       <div className="form-panel">
         <div className="two-columns">
-          <label>Nama panggilan<input value={form.name} maxLength={30} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Contoh: Naya" autoComplete="off" /></label>
-          <label>Usia<input type="number" inputMode="numeric" value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} placeholder="Contoh: 10" autoComplete="off" /></label>
+          <label>Nama Orang Tua *<input value={form.parentName} onChange={(e) => setForm({ ...form, parentName: e.target.value })} placeholder="Nama lengkap" autoComplete="off" /></label>
+          <label>Nomor WhatsApp *<input type="tel" value={form.whatsapp} onChange={(e) => setForm({ ...form, whatsapp: e.target.value })} placeholder="08xxxxxxxxxx" autoComplete="off" /></label>
+          <label>Email<input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="nama@email.com" autoComplete="off" /></label>
+          <label>Usia Anak<input value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} placeholder="mis. 10 tahun" autoComplete="off" /></label>
         </div>
+        <label style={{ marginTop: 18 }}>Minat Anak<input value={form.interests} onChange={(e) => setForm({ ...form, interests: e.target.value })} placeholder="mis. menggambar, sains, game" autoComplete="off" /></label>
+        <label style={{ marginTop: 18 }}>Pengalaman AI/Bisnis<select value={form.aiExperience} onChange={(e) => setForm({ ...form, aiExperience: e.target.value })}><option>Belum ada</option><option>Sedikit</option><option>Cukup</option></select></label>
+        <label style={{ marginTop: 18 }}>Ekspektasi setelah mengikuti kelas<textarea rows={3} value={form.expectations} onChange={(e) => setForm({ ...form, expectations: e.target.value })} placeholder="Ceritakan singkat kebutuhan Anda" /></label>
+        <label className="consent"><input type="checkbox" checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })} /><span>Saya menyetujui data saya digunakan untuk menghubungi saya terkait program KidsPreneur.</span></label>
         <div className="notice"><span>◎</span><p><strong>Kerjakan dengan jawabanmu sendiri.</strong><br />Jangan meminta bantuan AI atau orang tua saat menjawab.</p></div>
         <button className="primary-button full" disabled={!valid} onClick={onNext}>Lanjutkan <span>→</span></button>
       </div>
@@ -367,7 +372,7 @@ function NavButtons({ onBack, onNext, disabled, nextLabel = "Lanjutkan" }) {
   return <div className="nav-buttons"><button className="back-button" onClick={onBack}>← Kembali</button><button className="primary-button" disabled={disabled} onClick={onNext}>{nextLabel} <span>→</span></button></div>;
 }
 
-function Result({ form, result, savedToServer, onRestart }) {
+function Result({ result, savedToServer, onRestart }) {
   const core = PROFILES[result.ranking[0]];
   const support = PROFILES[result.ranking[1]];
   const growth = PROFILES[result.ranking[result.ranking.length - 1]];
@@ -375,7 +380,7 @@ function Result({ form, result, savedToServer, onRestart }) {
     <Shell step={STEPS_TOTAL}>
       <div className="result-hero">
         <span className="eyebrow">MISSION COMPLETE</span>
-        <p>Great job, {form.name}!</p>
+        <p>Great job!</p>
         <h1>Kekuatan Young Preneur-mu<br />mulai terlihat.</h1>
       </div>
       {savedToServer === false && (
@@ -410,7 +415,7 @@ function levelLabel(score) {
 
 function App() {
   const [screen, setScreen] = useState("welcome");
-  const [form, setForm] = useState({ name: "", age: "" });
+  const [form, setForm] = useState({ parentName: "", whatsapp: "", email: "", age: "", interests: "", aiExperience: "Belum ada", expectations: "", consent: false });
   const [context, setContext] = useState({ frequency: "", tools: [], experiences: [] });
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -434,7 +439,7 @@ function App() {
   };
 
   const restart = () => {
-    setForm({ name: "", age: "" });
+    setForm({ parentName: "", whatsapp: "", email: "", age: "", interests: "", aiExperience: "Belum ada", expectations: "", consent: false });
     setContext({ frequency: "", tools: [], experiences: [] });
     setQuestionIndex(0);
     setAnswers({});
@@ -455,8 +460,13 @@ function App() {
     const payload = {
       submittedAt: new Date().toISOString(),
       participantCode: submissionId,
-      nickname: form.name,
+      parentName: form.parentName,
+      whatsapp: form.whatsapp,
+      email: form.email,
       age: form.age,
+      interests: form.interests,
+      aiExperience: form.aiExperience,
+      expectations: form.expectations,
       aiFrequency: context.frequency,
       aiTools: context.tools,
       experiences: context.experiences,
@@ -474,8 +484,13 @@ function App() {
       const { error } = await supabase.from("submissions").insert({
         participant_code: payload.participantCode,
         submitted_at: payload.submittedAt,
-        nickname: payload.nickname,
+        nickname: payload.parentName,
         age: payload.age,
+        whatsapp: payload.whatsapp,
+        email: payload.email,
+        interests: payload.interests,
+        ai_experience: payload.aiExperience,
+        expectations: payload.expectations,
         ai_frequency: payload.aiFrequency,
         ai_tools: payload.aiTools,
         experiences: payload.experiences,
@@ -509,7 +524,7 @@ function App() {
   if (screen === "questions") return <Question index={questionIndex} answer={answers[questionIndex]} onAnswer={(value) => setAnswers({ ...answers, [questionIndex]: value })} onBack={goBackFromQuestion} onNext={() => { if (questionIndex === QUESTIONS.length - 1) setScreen("challenge-select"); else { setQuestionIndex(questionIndex + 1); window.scrollTo({ top: 0, behavior: "smooth" }); } }} />;
   if (screen === "challenge-select") return <ChallengeSelection selected={selectedChallenge} onSelect={(value) => { setSelectedChallenge(value); setChallengeAnswer(""); }} onBack={() => { setQuestionIndex(QUESTIONS.length - 1); setScreen("questions"); }} onNext={() => { setScreen("challenge"); window.scrollTo({ top: 0, behavior: "smooth" }); }} />;
   if (screen === "challenge") return <Challenge selected={selectedChallenge} response={challengeAnswer} setResponse={setChallengeAnswer} onBack={() => { setScreen("challenge-select"); window.scrollTo({ top: 0, behavior: "smooth" }); }} onNext={submit} submitting={submitting} />;
-  return <Result form={form} result={result} savedToServer={savedToServer} onRestart={restart} />;
+  return <Result result={result} savedToServer={savedToServer} onRestart={restart} />;
 }
 
 export default App;

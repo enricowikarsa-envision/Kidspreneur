@@ -79,8 +79,9 @@
         <table>
           <thead>
             <tr>
-              <th>Waktu</th><th>Nama</th><th>Usia</th>
+              <th>Waktu</th><th>Nama Orang Tua</th><th>WhatsApp</th><th>Usia</th>
               <th>Core Strength</th>
+              <th class="hide-sm">Email</th>
               <th class="hide-sm">Supporting</th><th class="hide-sm">Next Skill</th>
               <th class="hide-sm">Creative</th><th class="hide-sm">Comm.</th>
               <th class="hide-sm">Integrator</th><th class="hide-sm">Explorer</th>
@@ -116,7 +117,7 @@
 
       if (rows.length === 0) {
         const tr = document.createElement("tr");
-        tr.innerHTML = `<td colspan="11" class="empty">Belum ada submission.</td>`;
+        tr.innerHTML = `<td colspan="13" class="empty">Belum ada submission.</td>`;
         tbody.appendChild(tr);
         return;
       }
@@ -127,8 +128,10 @@
         tr.innerHTML = `
           <td>${esc(formatDate(row.submitted_at))}</td>
           <td>${esc(row.nickname)}</td>
+          <td>${esc(row.whatsapp)}</td>
           <td>${esc(row.age)}</td>
           <td>${esc(row.core_strength)}</td>
+          <td class="hide-sm">${esc(row.email)}</td>
           <td class="hide-sm">${esc(row.supporting_strength)}</td>
           <td class="hide-sm">${esc(row.next_skill)}</td>
           <td class="hide-sm">${esc(row.creative_score)}</td>
@@ -143,9 +146,17 @@
         const aiTools = (row.ai_tools || []).length ? esc((row.ai_tools || []).join(", ")) : "—";
         const experiences = (row.experiences || []).length ? esc((row.experiences || []).join(", ")) : "—";
         detail.innerHTML = `
-          <td colspan="11">
+          <td colspan="13">
             <div class="detail-grid">
               <div>
+                <h4>Kontak</h4>
+                <p>WhatsApp: ${esc(row.whatsapp) || "—"}<br>Email: ${esc(row.email) || "—"}</p>
+                <h4>Minat Anak</h4>
+                <p>${esc(row.interests) || "—"}</p>
+                <h4>Pengalaman AI/Bisnis</h4>
+                <p>${esc(row.ai_experience) || "—"}</p>
+                <h4>Ekspektasi setelah mengikuti kelas</h4>
+                <p>${esc(row.expectations) || "—"}</p>
                 <h4>Challenge</h4>
                 <p><strong>${esc(row.scenario)}</strong></p>
                 <p>${esc(row.challenge_problem)}</p>
