@@ -102,3 +102,15 @@ alter table submissions
   add column if not exists interests text,
   add column if not exists ai_experience text,
   add column if not exists expectations text;
+
+-- ============================================================
+-- MIGRATION: add "Nama Anak" (child's name) as the opening question
+-- of the assessment's "A little about you" step. Run once against an
+-- EXISTING project that already ran the migration above.
+--
+-- - `child_name` is new and nullable at the DB level — the app
+--   enforces it as required client-side, same treatment as the other
+--   "* " fields on this form.
+-- ============================================================
+alter table submissions
+  add column if not exists child_name text;

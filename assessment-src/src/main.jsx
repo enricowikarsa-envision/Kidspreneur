@@ -280,7 +280,7 @@ function Context({ context, setContext, onNext, onBack }) {
     const values = context[key];
     setContext({ ...context, [key]: values.includes(value) ? values.filter((item) => item !== value) : [...values, value] });
   };
-  const valid = context.frequency && context.tools.length && context.experiences.length;
+  const valid = context.childName.trim().length > 1 && context.frequency && context.tools.length && context.experiences.length;
   return (
     <Shell step={2}>
       <div className="section-heading left">
@@ -289,6 +289,7 @@ function Context({ context, setContext, onNext, onBack }) {
         <p>Bagian ini tidak memengaruhi hasil. Kami hanya ingin mengenal pengalamanmu.</p>
       </div>
       <div className="context-stack">
+        <label>Nama Anak *<input value={context.childName} onChange={(e) => setContext({ ...context, childName: e.target.value })} placeholder="Nama panggilan anak" autoComplete="off" /></label>
         <fieldset><legend>Seberapa sering kamu pernah menggunakan alat AI?</legend><div className="option-grid compact-options">{["Belum pernah", "Pernah 1–2 kali", "Kadang-kadang", "Cukup sering"].map((item) => <button key={item} className={context.frequency === item ? "choice selected" : "choice"} onClick={() => setContext({ ...context, frequency: item })}>{item}</button>)}</div></fieldset>
         <fieldset><legend>AI apa yang pernah kamu gunakan? <small>Boleh pilih lebih dari satu</small></legend><div className="tag-options">{["ChatGPT", "Gemini", "Canva AI", "Image generator", "Belum pernah"].map((item) => <button key={item} className={context.tools.includes(item) ? "tag selected" : "tag"} onClick={() => toggle("tools", item)}>{context.tools.includes(item) ? "✓ " : "+ "}{item}</button>)}</div></fieldset>
         <fieldset><legend>Mana yang pernah kamu lakukan? <small>Boleh pilih lebih dari satu</small></legend><div className="tag-options">{["Membuat presentasi", "Membuat poster / logo", "Menjelaskan ide", "Proyek kelompok", "Belum pernah"].map((item) => <button key={item} className={context.experiences.includes(item) ? "tag selected" : "tag"} onClick={() => toggle("experiences", item)}>{context.experiences.includes(item) ? "✓ " : "+ "}{item}</button>)}</div></fieldset>
@@ -416,7 +417,7 @@ function levelLabel(score) {
 function App() {
   const [screen, setScreen] = useState("welcome");
   const [form, setForm] = useState({ parentName: "", whatsapp: "", email: "", age: "", interests: "", aiExperience: "Belum ada", expectations: "", consent: false });
-  const [context, setContext] = useState({ frequency: "", tools: [], experiences: [] });
+  const [context, setContext] = useState({ childName: "", frequency: "", tools: [], experiences: [] });
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [selectedChallenge, setSelectedChallenge] = useState("");
@@ -467,6 +468,7 @@ function App() {
       interests: form.interests,
       aiExperience: form.aiExperience,
       expectations: form.expectations,
+      childName: context.childName,
       aiFrequency: context.frequency,
       aiTools: context.tools,
       experiences: context.experiences,
@@ -491,6 +493,7 @@ function App() {
         interests: payload.interests,
         ai_experience: payload.aiExperience,
         expectations: payload.expectations,
+        child_name: payload.childName,
         ai_frequency: payload.aiFrequency,
         ai_tools: payload.aiTools,
         experiences: payload.experiences,
