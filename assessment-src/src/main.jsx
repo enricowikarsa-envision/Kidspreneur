@@ -265,10 +265,9 @@ function Identity({ form, setForm, onNext }) {
           <label>Usia Anak<input value={form.age} onChange={(e) => setForm({ ...form, age: e.target.value })} placeholder="mis. 10 tahun" autoComplete="off" /></label>
         </div>
         <label style={{ marginTop: 18 }}>Minat Anak<input value={form.interests} onChange={(e) => setForm({ ...form, interests: e.target.value })} placeholder="mis. menggambar, sains, game" autoComplete="off" /></label>
-        <label style={{ marginTop: 18 }}>Pengalaman AI/Bisnis<select value={form.aiExperience} onChange={(e) => setForm({ ...form, aiExperience: e.target.value })}><option>Belum ada</option><option>Sedikit</option><option>Cukup</option></select></label>
+        <label style={{ marginTop: 18 }}>Pernah menggunakan AI?<select value={form.aiExperience} onChange={(e) => setForm({ ...form, aiExperience: e.target.value })}><option>Belum ada</option><option>Sedikit</option><option>Cukup</option></select></label>
         <label style={{ marginTop: 18 }}>Ekspektasi setelah mengikuti kelas<textarea rows={3} value={form.expectations} onChange={(e) => setForm({ ...form, expectations: e.target.value })} placeholder="Ceritakan singkat kebutuhan Anda" /></label>
         <label className="consent"><input type="checkbox" checked={form.consent} onChange={(e) => setForm({ ...form, consent: e.target.checked })} /><span>Saya menyetujui data saya digunakan untuk menghubungi saya terkait program KidsPreneur.</span></label>
-        <div className="notice"><span>◎</span><p><strong>Kerjakan dengan jawabanmu sendiri.</strong><br />Jangan meminta bantuan AI atau orang tua saat menjawab.</p></div>
         <button className="primary-button full" disabled={!valid} onClick={onNext}>Lanjutkan <span>→</span></button>
       </div>
     </Shell>
@@ -280,7 +279,7 @@ function Context({ context, setContext, onNext, onBack }) {
     const values = context[key];
     setContext({ ...context, [key]: values.includes(value) ? values.filter((item) => item !== value) : [...values, value] });
   };
-  const valid = context.childName.trim().length > 1 && context.frequency && context.tools.length && context.experiences.length;
+  const valid = context.childName.trim().length > 1 && context.frequency && context.tools.trim().length > 0 && context.experiences.length;
   return (
     <Shell step={2}>
       <div className="section-heading left">
@@ -288,10 +287,11 @@ function Context({ context, setContext, onNext, onBack }) {
         <h2>Pengalamanmu sejauh ini</h2>
         <p>Bagian ini tidak memengaruhi hasil. Kami hanya ingin mengenal pengalamanmu.</p>
       </div>
+      <div className="notice"><span>◎</span><p><strong>Mulai dari sini, giliran kamu yang mengisi, ya!</strong><br />Kerjakan dengan jawabanmu sendiri. Jangan meminta bantuan AI atau orang tua saat menjawab pertanyaan-pertanyaan berikutnya.</p></div>
       <div className="context-stack">
         <label>Nama Anak *<input value={context.childName} onChange={(e) => setContext({ ...context, childName: e.target.value })} placeholder="Nama panggilan anak" autoComplete="off" /></label>
         <fieldset><legend>Seberapa sering kamu pernah menggunakan alat AI?</legend><div className="option-grid compact-options">{["Belum pernah", "Pernah 1–2 kali", "Kadang-kadang", "Cukup sering"].map((item) => <button key={item} className={context.frequency === item ? "choice selected" : "choice"} onClick={() => setContext({ ...context, frequency: item })}>{item}</button>)}</div></fieldset>
-        <fieldset><legend>AI apa yang pernah kamu gunakan? <small>Boleh pilih lebih dari satu</small></legend><div className="tag-options">{["ChatGPT", "Gemini", "Canva AI", "Image generator", "Belum pernah"].map((item) => <button key={item} className={context.tools.includes(item) ? "tag selected" : "tag"} onClick={() => toggle("tools", item)}>{context.tools.includes(item) ? "✓ " : "+ "}{item}</button>)}</div></fieldset>
+        <fieldset><legend>AI apa yang pernah kamu gunakan? <small>Boleh sebutkan lebih dari satu</small></legend><input value={context.tools} onChange={(e) => setContext({ ...context, tools: e.target.value })} placeholder="mis. ChatGPT, Gemini" autoComplete="off" /></fieldset>
         <fieldset><legend>Mana yang pernah kamu lakukan? <small>Boleh pilih lebih dari satu</small></legend><div className="tag-options">{["Membuat presentasi", "Membuat poster / logo", "Menjelaskan ide", "Proyek kelompok", "Belum pernah"].map((item) => <button key={item} className={context.experiences.includes(item) ? "tag selected" : "tag"} onClick={() => toggle("experiences", item)}>{context.experiences.includes(item) ? "✓ " : "+ "}{item}</button>)}</div></fieldset>
       </div>
       <NavButtons onBack={onBack} onNext={onNext} disabled={!valid} />
@@ -417,7 +417,7 @@ function levelLabel(score) {
 function App() {
   const [screen, setScreen] = useState("welcome");
   const [form, setForm] = useState({ parentName: "", whatsapp: "", email: "", age: "", interests: "", aiExperience: "Belum ada", expectations: "", consent: false });
-  const [context, setContext] = useState({ childName: "", frequency: "", tools: [], experiences: [] });
+  const [context, setContext] = useState({ childName: "", frequency: "", tools: "", experiences: [] });
   const [questionIndex, setQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState({});
   const [selectedChallenge, setSelectedChallenge] = useState("");
@@ -441,7 +441,7 @@ function App() {
 
   const restart = () => {
     setForm({ parentName: "", whatsapp: "", email: "", age: "", interests: "", aiExperience: "Belum ada", expectations: "", consent: false });
-    setContext({ frequency: "", tools: [], experiences: [] });
+    setContext({ childName: "", frequency: "", tools: "", experiences: [] });
     setQuestionIndex(0);
     setAnswers({});
     setSelectedChallenge("");
@@ -495,7 +495,7 @@ function App() {
         expectations: payload.expectations,
         child_name: payload.childName,
         ai_frequency: payload.aiFrequency,
-        ai_tools: payload.aiTools,
+        ai_tools: payload.aiTools.trim() ? [payload.aiTools.trim()] : [],
         experiences: payload.experiences,
         creative_score: payload.scores.creative,
         communicator_score: payload.scores.communicator,
