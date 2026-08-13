@@ -114,3 +114,38 @@ alter table submissions
 -- ============================================================
 alter table submissions
   add column if not exists child_name text;
+
+-- ============================================================
+-- MIGRATION: create contact_inquiries for the landing page's Kontak
+-- form (index.html, #kp-form). This form was previously wired to a
+-- fake client-side "success" state that never actually sent the data
+-- anywhere — every submission was silently lost. It now POSTs
+-- directly to this table via the anon key, same pattern as
+-- `submissions` above.
+--
+-- Run once against an EXISTING project that already ran the
+-- migrations above.
+-- ============================================================
+create table contact_inquiries (
+  id bigint generated always as identity primary key,
+  submitted_at timestamptz not null default now(),
+  parent_name text not null,
+  whatsapp text not null,
+  email text,
+  child_age text,
+  interests text,
+  ai_experience text,
+  expectations text
+);
+
+alter table contact_inquiries enable row level security;
+
+create policy "anon can insert contact_inquiries"
+  on contact_inquiries for insert
+  to anon
+  with check (true);
+-- Deliberately no select/update/delete policy for anon or authenticated,
+-- same reasoning as `submissions`: this table cannot be read through the
+-- REST API at all except via a password-gated function (add a
+-- get_contact_inquiries() function, mirroring get_submissions() above,
+-- if/when this needs to surface in the admin dashboard).

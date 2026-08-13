@@ -2015,7 +2015,7 @@
           <label style="display:flex; align-items:flex-start; gap:10px; margin-top:16px; font-size:13px; line-height:1.5; color:#5B6B85; font-weight:500;"><input name="consent" type="checkbox" style="margin-top:3px; width:16px; height:16px; accent-color:var(--accent-a);"> Saya menyetujui data saya digunakan untuk menghubungi saya terkait program KidsPreneur.</label>
           <div id="kp-error" role="alert" style="display:none; margin-top:14px; background:#FDECEC; color:#C0392B; font-weight:600; font-size:14px; padding:12px 16px; border-radius:10px;"></div>
           <div id="kp-sent" role="status" style="display:none; margin-top:14px; background:#EAF8EF; color:var(--accent-b); font-weight:700; font-size:14px; padding:12px 16px; border-radius:10px;">Terima kasih! Pesan Anda sudah kami terima. Tim kami akan menghubungi Anda dalam 1–2 hari kerja.</div>
-          <button class="kp-cta" type="submit" style="width:100%; margin-top:18px; background:var(--accent-a); color:#fff; font-weight:800; font-size:16px; padding:15px; border:none; border-radius:12px; cursor:pointer; box-shadow:0 12px 24px rgba(37,99,235,0.28);">Kirim &amp; Hubungi Saya</button>
+          <button id="kp-submit" class="kp-cta" type="submit" style="width:100%; margin-top:18px; background:var(--accent-a); color:#fff; font-weight:800; font-size:16px; padding:15px; border:none; border-radius:12px; cursor:pointer; box-shadow:0 12px 24px rgba(37,99,235,0.28);">Kirim &amp; Hubungi Saya</button>
           <p style="margin-top:12px; font-size:12px; line-height:1.5; color:#8393AC; font-weight:500;">Data yang Anda kirim hanya digunakan untuk menindaklanjuti pertanyaan Anda dan tidak dibagikan ke pihak lain.</p>
         </form>
       </div>
@@ -2064,10 +2064,15 @@
     if (!f) return;
     var err = document.getElementById('kp-error');
     var sent = document.getElementById('kp-sent');
+    var btn = document.getElementById('kp-submit');
+    var btnLabel = btn.textContent;
+    var SUPABASE_URL = 'https://ygenpyaqswifjqvrpjqo.supabase.co';
+    var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlnZW5weWFxc3dpZmpxdnJwanFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1MDY4NjMsImV4cCI6MjEwMTA4Mjg2M30.1m5R9E2DoXYqwkBu6PxXqMG4uIcpwn13pnn4dBTeerQ';
     function val(n){ var el = f.elements[n]; return el ? String(el.value || '').trim() : ''; }
     f.addEventListener('submit', function (e) {
       e.preventDefault();
       sent.style.display = 'none';
+      err.style.display = 'none';
       var name = val('pname'), wa = val('wa');
       var consent = f.elements['consent'] && f.elements['consent'].checked;
       if (!name || !wa) {
@@ -2078,10 +2083,37 @@
         err.textContent = 'Mohon setujui persetujuan privasi terlebih dahulu.';
         err.style.display = 'block'; return;
       }
-      err.style.display = 'none';
-      sent.style.display = 'block';
-      f.reset();
-      sent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      btn.disabled = true;
+      btn.textContent = 'Mengirim...';
+      fetch(SUPABASE_URL + '/rest/v1/contact_inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          parent_name: name,
+          whatsapp: wa,
+          email: val('email'),
+          child_age: val('cage'),
+          interests: val('interests'),
+          ai_experience: val('exp'),
+          expectations: val('topic')
+        })
+      }).then(function (res) {
+        if (!res.ok) throw new Error('Request failed: ' + res.status);
+        sent.style.display = 'block';
+        f.reset();
+        sent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }).catch(function () {
+        err.textContent = 'Terjadi kendala saat mengirim. Silakan coba lagi atau hubungi kami langsung via WhatsApp.';
+        err.style.display = 'block';
+      }).finally(function () {
+        btn.disabled = false;
+        btn.textContent = btnLabel;
+      });
     });
   })();
 
