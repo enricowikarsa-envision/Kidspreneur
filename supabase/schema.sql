@@ -146,6 +146,28 @@ create policy "anon can insert contact_inquiries"
   with check (true);
 -- Deliberately no select/update/delete policy for anon or authenticated,
 -- same reasoning as `submissions`: this table cannot be read through the
--- REST API at all except via a password-gated function (add a
--- get_contact_inquiries() function, mirroring get_submissions() above,
--- if/when this needs to surface in the admin dashboard).
+-- REST API at all except via a password-gated function.
+
+-- ============================================================
+-- MIGRATION: password-gated read access to contact_inquiries, so the
+-- admin dashboard can list Kontak-form leads alongside assessment
+-- submissions. Mirrors get_submissions() above exactly.
+-- ============================================================
+create or replace function get_contact_inquiries(admin_password text)
+returns setof contact_inquiries
+language plpgsql
+security definer
+set search_path = public, extensions
+as $$
+begin
+  if exists (
+    select 1 from admin_secret
+    where password_hash = crypt(admin_password, password_hash)
+  ) then
+    return query select * from contact_inquiries order by submitted_at desc;
+  end if;
+  return;
+end;
+$$;
+
+grant execute on function get_contact_inquiries(text) to anon;

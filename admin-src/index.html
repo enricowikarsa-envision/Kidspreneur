@@ -73,7 +73,22 @@
       <p class="error" id="loginError">Password salah atau belum ada data.</p>
     </div>
     <div id="dashboard">
-      <h1>Hasil Assessment</h1>
+      <h1>Pesan Kontak</h1>
+      <p class="count" id="contactRowCount"></p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Waktu</th><th>Nama Orang Tua</th><th>WhatsApp</th>
+              <th class="hide-sm">Email</th><th class="hide-sm">Usia Anak</th>
+              <th class="hide-sm">Minat Anak</th><th class="hide-sm">Pengalaman AI/Bisnis</th>
+            </tr>
+          </thead>
+          <tbody id="contactRows"></tbody>
+        </table>
+      </div>
+
+      <h1 style="margin-top:40px;">Hasil Assessment</h1>
       <p class="count" id="rowCount"></p>
       <div class="table-wrap">
         <table>
@@ -192,8 +207,42 @@
       });
     }
 
+    function renderContactRows(rows) {
+      const tbody = document.getElementById("contactRows");
+      const rowCount = document.getElementById("contactRowCount");
+      tbody.innerHTML = "";
+      rowCount.textContent = `${rows.length} pesan`;
+
+      if (rows.length === 0) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td colspan="7" class="empty">Belum ada pesan kontak.</td>`;
+        tbody.appendChild(tr);
+        return;
+      }
+
+      rows.forEach((row) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${esc(formatDate(row.submitted_at))}</td>
+          <td>${esc(row.parent_name)}</td>
+          <td>${esc(row.whatsapp)}</td>
+          <td class="hide-sm">${esc(row.email) || "—"}</td>
+          <td class="hide-sm">${esc(row.child_age) || "—"}</td>
+          <td class="hide-sm">${esc(row.interests) || "—"}</td>
+          <td class="hide-sm">${esc(row.ai_experience) || "—"}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
     async function fetchSubmissions(password) {
       const { data, error } = await client.rpc("get_submissions", { admin_password: password });
+      if (error) throw error;
+      return data || [];
+    }
+
+    async function fetchContactInquiries(password) {
+      const { data, error } = await client.rpc("get_contact_inquiries", { admin_password: password });
       if (error) throw error;
       return data || [];
     }
@@ -218,6 +267,11 @@
         document.getElementById("login").style.display = "none";
         document.getElementById("dashboard").style.display = "block";
         renderRows(rows);
+        try {
+          renderContactRows(await fetchContactInquiries(password));
+        } catch (err) {
+          renderContactRows([]);
+        }
       } catch (err) {
         loginError.textContent = "Terjadi kesalahan. Coba lagi.";
         loginError.style.display = "block";
